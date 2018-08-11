@@ -11,17 +11,17 @@ if ((isset($_GET['action']) && isset($_GET['id']))) {
         $res = $db->query($query);
         if ($res == true) {
             unlink("..".$resBook['image']);
-            $_SESSION['message'] = "<h3>Libro borrado con exito</h3>";
+            $_SESSION['message'] = "<div class='alert alert-success' role='alert'>Libro borrado con exito</div>";
         } else {
-            $_SESSION['message'] = "<h3>Error al borrar el libro</h3>";
+            $_SESSION['message'] = "<div class='alert alert-danger' role='alert'>Error al borrar el libro</div>";
         }
     } else if ($_GET['action'] == 'sell') {
         $query = "UPDATE `books` SET available=0 WHERE id=".$_GET['id'];
         $res = $db->query($query);
         if ($res == true) {
-            $_SESSION['message'] = "<h3>Libro modificado con exito</h3>";
+            $_SESSION['message'] = "<div class='alert alert-success' role='alert'>Libro modificado con exito</div>";
         } else {
-            $_SESSION['message'] = "<h3>Error al modificar el libro</h3>";
+            $_SESSION['message'] = "<div class='alert alert-danger' role='alert'>Error al modificar el libro</div>";
         }
     }
     header("Location: /libros/list");
@@ -36,10 +36,13 @@ if ((isset($_GET['action']) && isset($_GET['id']))) {
     <title>Ver Libros</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
         crossorigin="anonymous">
+        <link rel="stylesheet" href="../styles/main.css" />
 </head>
 
 <body>
-    <nav class="navbar navbar-light bg-light justify-content-between">
+<?php include('../shared/header.php')?>
+    <div class="container">
+    <nav class="navbar justify-content-between nav-search">
         <a class="navbar-brand">Libros Disponibles</a>
         <form class="form-inline" action="/libros/list">
             <input class="form-control mr-sm-2" name="buscar" type="search" placeholder="Buscar">
@@ -88,15 +91,19 @@ if ((isset($_GET['action']) && isset($_GET['id']))) {
                     echo "<td>".((bool)$value["available"] ? "Si" : "No")."</td>";
                     echo "<td>";
                     echo "<a class='btn btn-danger' href='/libros/list?action=delete&id=".$value["id"]."'>Eliminar</a>";
-                    echo "<br /> <br />";
-                    echo "<a class='btn btn-primary' href='/libros/list?action=sell&id=".$value["id"]."'>Marcar como vendido</a>";
+                    if ((bool)$value["available"] == true) {
+                        echo "<br /> <br />";
+                        echo "<a class='btn btn-primary' href='/libros/list?action=sell&id=".$value["id"]."'>Marcar como vendido</a>";
+    
+                    }
                     echo "</td>";
                     echo "</tr>";
                 }
             ?>
         </tbody>
     </table>
-
+    <?php include('../shared/footer.php');?>
+    </div>
 </body>
 
 </html>

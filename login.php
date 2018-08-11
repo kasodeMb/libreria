@@ -6,72 +6,66 @@
     <title>Login</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
         crossorigin="anonymous">
-    <link rel="stylesheet" href="styles/login.css" />
+    <link rel="stylesheet" href="styles/main.css" />
 </head>
 
 <body>
     <?php
-require ('mysql.php');
-session_start();
-$db = new MySQL();
-// If form submitted, insert values into the database.
-if (isset($_POST['username'])) {
-    $username = stripslashes($_REQUEST['username']); // removes backslashes
-    $username = $db->realEscapeString($username); //escapes special characters in a string
-    $password = stripslashes($_REQUEST['password']);
-    $password = $db->realEscapeString($password);
+        require('mysql.php');
+        session_start();
+        $db = new MySQL();
+        // If form submitted, insert values into the database.
+        if (isset($_POST['username'])) {
+            $username = stripslashes($_REQUEST['username']); // removes backslashes
+            $username = $db->realEscapeString($username); //escapes special characters in a string
+            $password = stripslashes($_REQUEST['password']);
+            $password = $db->realEscapeString($password);
 
-    //Checking is user existing in the database or not
+            //Checking is user existing in the database or not
 
-    $query =
-        "SELECT * FROM `users` WHERE username='$username' and password='" .
-        md5($password) .
-        "'";
-    $db->query($query);
-    $rows = $db->fetchArray();
-    if (count($rows) != 0) {
-        $_SESSION['username'] = $username;
-        $_SESSION['isAdmin'] = (bool) $rows['admin'];
-        if ($_SESSION['isAdmin'] == true) {
-            header("Location: /"); 
-        } else {
-            header("Location: inicio.html"); 
+            $query =
+                "SELECT * FROM `users` WHERE username='$username' and password='" .
+                md5($password) .
+                "'";
+            $db->query($query);
+            $rows = $db->fetchArray();
+            if (count($rows) != 0) {
+                $_SESSION['username'] = $username;
+                $_SESSION['isAdmin'] = (bool) $rows['admin'];
+                header("Location: /");
+                exit();
+            } else {
+                $_SESSION['message'] = "<div class='alert alert-danger login-error' role='alert'>El Username/Password es incorrecto</div>";
+            }
         }
-        
-    } else {
-        echo "<div class='form'><h3>Username/password is incorrect.</h3><br/>Click here to <a href='login.php'>Login</a></div>";
-    }
-} else {
-     ?>
-        <div class="form">
-            <div id="apDiv1">
-                <div align="center">
-                    <img src="IMAG/Distribuidora FAMA - Logo.jpg" width="177" height="125">
-                    <img src="IMAG/Distribuidora Cervantes- Logo.png" width="185" height="128">
-                    <img src="IMAG/Apartamentos Buenavista - Logo.png" width="192" height="133">
-                    <img src="IMAG/Moreira Compra y Venta de Autos Chocados - Logo.jpg" width="186" height="123">
-                </div>
+        ?>
+        <div class="container">
+            <div class="card px-4 py-3">
+                <h1 align="center">Iniciar Session</h1>
+                <form action="/login" method="post">
+                    <div class="form-group">
+                        <label for="username">Username</label>
+                        <input type="text" class="form-control" name="username" id="username">
+                    </div>
+                    <div class="form-group">
+                        <label for="password">Password</label>
+                        <input type="password" class="form-control" id="password" name="password">
+                    </div>
+                    <button type="submit" class="btn btn-primary">Login</button>
+                    <?php 
+                        if (isset($_SESSION['message'])) {
+                            echo $_SESSION['message'];
+                            unset($_SESSION['message']);
+                        }
+                    ?>
+                </form>
+                <div class="dropdown-divider"></div>
+                <p align="center" class="not-registered">
+                    Todavía no estas registrado?
+                    <a href='/users/registration'>Registrarse aqui</a>
+                </p>
             </div>
-            <h1 align="center"> COMPRA Y VENTA DE LIBROS USADOS</h1>
-            <h1 align="center">Inciar Sessión</h1>
-            <form action="" method="post" name="login">
-                <div align="center">
-                    <input type="text" name="username" placeholder="Username" required />
-                    <input type="password" name="password" placeholder="Password" required />
-                    <input name="submit" type="submit" value="Login" />
-                </div>
-            </form>
-            <p align="center">
-                <br> Todavía no estas registrado?
-                <a href='/users/registration'>Registrarse aqui</a>
-                <br />
-            </p>
-        </div>
-        <?php
-}
-?>
-        <div id="apDiv">
-            <img src="/IMAG/cpy.png" alt="" width="222" height="45">
+            <?php include('shared/footer.php');?>
         </div>
 </body>
 

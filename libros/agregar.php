@@ -34,17 +34,23 @@
   }
         
 ?>
-  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-  <title>Agregar Libros</title>
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
-    crossorigin="anonymous">
-  <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
-    crossorigin="anonymous"></script>
-  <script crossorigin src="https://underscorejs.org/underscore-min.js"></script>
-  <link rel="stylesheet" href="../styles/main.css" />
+  <!DOCTYPE html>
+  <html>
+
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>Agregar Libros</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
+      crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+      crossorigin="anonymous"></script>
+    <script crossorigin src="https://underscorejs.org/underscore-min.js"></script>
+    <link rel="stylesheet" href="../styles/main.css" />
   </head>
 
   <body>
+  <?php include('../shared/header.php')?>
+    <div class="container">
     <form action="/libros/agregar" method="post" enctype="multipart/form-data">
       <div class="form-group">
         <label for="isbn">ISBN</label>
@@ -68,8 +74,9 @@
           <span id="image" class="custom-file-control custom-file-name custom-file-label" data-content="Selecione una imagen..."></span>
         </div>
       </div>
-      <button type="submit" class="btn btn-primary">Agregar</button>
-      <p><?php echo $msg?> </p>
+      <button type="submit" class="btn btn-primary btn-lg">Agregar</button>
+      <p>
+        <?php echo $msg?> </p>
     </form>
     <script>
       $(document).ready(function () {
@@ -105,6 +112,8 @@
         });
       });
     </script>
+    <?php include('../shared/footer.php');?>
+    </div>
   </body>
 
   </html>

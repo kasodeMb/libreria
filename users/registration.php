@@ -1,6 +1,3 @@
-<?php 
-require("../adminOnly.php");
-?>
 <!DOCTYPE html>
 <html>
 

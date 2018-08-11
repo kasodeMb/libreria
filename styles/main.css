@@ -8,3 +8,36 @@
   overflow: hidden;
   padding: 0.5rem 1rem;
 }
+
+header {
+  padding: 30px 30px 20px 30px;
+  margin-bottom: 10px;
+  border-bottom: solid 1px lightgrey;
+}
+
+.logo {
+  display: inline-block;
+}
+
+.hello {
+  display: inline-block;
+}
+
+.nav-search {
+  margin-bottom: 30px;
+}
+
+.admin-group {
+  padding: 40px;
+}
+
+.login-error {
+  margin-top: 20px;
+}
+
+.card {
+  margin: 40px auto;
+}
+.not-registered {
+  margin-top: 1rem;
+}
