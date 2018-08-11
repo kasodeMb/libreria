@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Aug 10, 2018 at 11:19 PM
+-- Generation Time: Aug 11, 2018 at 02:40 PM
 -- Server version: 5.7.23-0ubuntu0.18.04.1
 -- PHP Version: 7.2.7-0ubuntu0.18.04.2
 
@@ -27,6 +27,23 @@ USE `libreria`;
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `books`
+--
+
+DROP TABLE IF EXISTS `books`;
+CREATE TABLE `books` (
+  `id` int(11) NOT NULL,
+  `isbn` varchar(13) NOT NULL,
+  `title` varchar(50) DEFAULT NULL,
+  `image` varchar(280) DEFAULT NULL,
+  `author` varchar(50) NOT NULL,
+  `available` tinyint(1) NOT NULL DEFAULT '1',
+  `description` text NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `users`
 --
 
@@ -45,12 +62,18 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `username`, `email`, `password`, `trn_date`, `admin`) VALUES
-(6, 'Jason', 'jason93.mb@gmail.com', '81dc9bdb52d04dc20036dbd8313ed055', '2018-08-10 22:23:41', 1),
-(9, 'test', 'test@test.com', '098f6bcd4621d373cade4e832627b4f6', '2018-08-10 23:17:43', 0);
+(13, 'jason', 'jason93.mb@gmail.com', '81dc9bdb52d04dc20036dbd8313ed055', '2018-08-11 00:33:26', 1),
+(14, 'admin', 'admin@admin.com', '21232f297a57a5a743894a0e4a801fc3', '2018-08-11 14:08:00', 1);
 
 --
 -- Indexes for dumped tables
 --
+
+--
+-- Indexes for table `books`
+--
+ALTER TABLE `books`
+  ADD PRIMARY KEY (`id`,`isbn`);
 
 --
 -- Indexes for table `users`
@@ -63,10 +86,16 @@ ALTER TABLE `users`
 --
 
 --
+-- AUTO_INCREMENT for table `books`
+--
+ALTER TABLE `books`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+
+--
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
