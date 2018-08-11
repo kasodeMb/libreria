@@ -17,7 +17,7 @@
   },
   "homepage": "https://github.com/kasodeMb/libreria#readme",
   "lint-staged": {
-    "**/*.{js,php,json,css}": [
+    "**/*.{js,json,css}": [
       "prettier --single-quote --write",
       "git add"
     ]

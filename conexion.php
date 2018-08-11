@@ -1,7 +1,7 @@
 <?php
 class conexion
 {
-    function recuperarDatos()
+    public function recuperarDatos()
     {
         $db = new MySQL();
         $con = mysqli_connect("localhost", "pmauser", "root", "libreria") or
@@ -16,4 +16,3 @@ class conexion
         }
     }
 }
-?>

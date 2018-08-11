@@ -1,24 +1,14 @@
-
-
-
-
-<!DOCTYPE html>
-
-<html>
-
-<head>
-
-<meta charset="utf-8">
-
-<title>Registration</title>
-
-<link rel="stylesheet" href="styles/main.css" />
-
-</head>
-
-<body>
-
-<?php
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>Registration</title>
+    <link rel="stylesheet" href="styles/main.css" />
+</head>
+
+<body>
+    <?php
 require 'mysql.php';
 $db = new MySQL();
 $result = null;
@@ -40,42 +30,28 @@ if (isset($_REQUEST['username'])) {
 
     $result = $db->query($query);
 }
-?>
-
-<div class="register">
-
-
-
-<div id="apDiv10"><img src="IMAG/books.jpg" width="384" height="201"></div>
-
-<h1 align="center">Registro de Usuarios </h1>
-
-<form name="registration" action="" method="post">
-
-  <div align="center">
-
-  <input type="text" name="username" placeholder="Username" required />
-
-  <input type="email" name="email" placeholder="Email" required />
-
-  <input type="password" name="password" placeholder="Password" required />
-
-  <input type="submit" name="submit" value="Register" />
-
-    <?php if ($result) {
-        echo "<div class='form'><h3>Su usuario ya fue registrado.</h3><br/>Click Aqui para <a href='login.php'>Regresar</a></div>";
-    } ?>
-  </div>
-
-</form>
-
-</div>
-
-</div>
-
-<div id="apDiv"><img src="IMAG/cpy.png" width="222" height="45"></div>
-
-</body>
-
-</html>
-
+?>
+        <div class="register">
+            <div id="apDiv10">
+                <img src="IMAG/books.jpg" width="384" height="201">
+            </div>
+            <h1 align="center">Registro de Usuarios </h1>
+            <form name="registration" action="" method="post">
+                <div align="center">
+                    <input type="text" name="username" placeholder="Username" required />
+                    <input type="email" name="email" placeholder="Email" required />
+                    <input type="password" name="password" placeholder="Password" required />
+                    <input type="submit" name="submit" value="Register" />
+                    <?php if ($result) {
+    echo "<div class='form'><h3>Su usuario ya fue registrado.</h3><br/>Click Aqui para <a href='login.php'>Regresar</a></div>";
+} ?>
+                </div>
+            </form>
+        </div>
+        </div>
+        <div id="apDiv">
+            <img src="IMAG/cpy.png" width="222" height="45">
+        </div>
+</body>
+
+</html>

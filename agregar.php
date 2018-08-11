@@ -26,57 +26,75 @@ if ($_POST['agendar']) {
         $msg = "Falta rellenar algun dato";
     }
 }
-?>
-
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<title>Agenda - Agregar personas</title>
-</head>
-
-<style type="text/css"> 
-.agenda {
-	margin:100px auto 0 auto; 
-	width:701px;
-	height:468px;
-	background-image:url(imagenes/agenda.jpg);
-}
-.agenda #contenidor {
-	padding:25px;
-	width:276px;
-	height:428px;
-}
-</style>
-<body>
-<div class="agenda">
-	<div id="contenidor">
-      <div align="center">
-        <table width="106%" height="378" border="0">
-          <tr>
-            <td height="38" colspan="3" align="center" valign="middle"><h1>Agregar Libros</h1></td>
-          </tr>
-          <tr>
-            <td height="334" colspan="3" valign="top"><div align="center"><em><span style="color:red;">
-              <?= $msg; ?>
-              </span></em>	        </div>
-              <form action="agregar.php" method="post">
-                <div align="center">
-                  <p><strong>Nombre</strong>
-                    <input type="text" name="nombre" id="nombre" />
-                    <strong>Correo</strong>
-                    <input type="text" name="correo" id="correo" />
-                  </p>
-                  <p>
-                    <input type="submit" name="agendar" value="Agregar" />
-                  </p>
-                  <p>PARA SUBIR TU IMAGEN:</p>
-                  <p><a href="form.php"><img src="IMAG/subir img.jpg" width="134" height="47"></a></p>
-                </div>
-              </form>
-              <div id="apDiv4"><a href="/logout"><img src="IMAG/exit.png" width="100" height="70" /></a>  <a href="/menu.html"> <img src="IMAG/menu.png" width="91" height="69" /></a></div>
-            </td>
-          </tr>
-        </table>
-      </div>
-  </div>
-</div>
-</body>
-</html>
+?>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>Agenda - Agregar personas</title>
+</head>
+<style type="text/css">
+    .agenda {
+      margin: 100px auto 0 auto;
+      width: 701px;
+      height: 468px;
+      background-image: url(imagenes/agenda.jpg);
+    }
+
+    .agenda #contenidor {
+      padding: 25px;
+      width: 276px;
+      height: 428px;
+    }
+  </style>
+  <body>
+    <div class="agenda">
+      <div id="contenidor">
+        <div align="center">
+          <table width="106%" height="378" border="0">
+            <tr>
+              <td height="38" colspan="3" align="center" valign="middle">
+                <h1>Agregar Libros</h1>
+              </td>
+            </tr>
+            <tr>
+              <td height="334" colspan="3" valign="top">
+                <div align="center">
+                  <em>
+                    <span style="color:red;">
+                      <?= $msg; ?>
+                    </span>
+                  </em>
+                </div>
+                <form action="agregar.php" method="post">
+                  <div align="center">
+                    <p>
+                      <strong>Nombre</strong>
+                      <input type="text" name="nombre" id="nombre" />
+                      <strong>Correo</strong>
+                      <input type="text" name="correo" id="correo" />
+                    </p>
+                    <p>
+                      <input type="submit" name="agendar" value="Agregar" />
+                    </p>
+                    <p>PARA SUBIR TU IMAGEN:</p>
+                    <p>
+                      <a href="form.php">
+                        <img src="IMAG/subir img.jpg" width="134" height="47">
+                      </a>
+                    </p>
+                  </div>
+                </form>
+                <div id="apDiv4">
+                  <a href="/logout">
+                    <img src="IMAG/exit.png" width="100" height="70" />
+                  </a>
+                  <a href="/menu.html">
+                    <img src="IMAG/menu.png" width="91" height="69" />
+                  </a>
+                </div>
+              </td>
+            </tr>
+          </table>
+        </div>
+      </div>
+    </div>
+  </body>
+  </html>

@@ -1,10 +1,15 @@
-<title>Documento sin título</title>
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Documento sin título</title>
 </head>
 
 <body>
-<form action="procesar.php" method="post" enctype="multipart/form-data">
-<input type= "file" name="foto"/>
-<input type= "submit" name="Upload"/>
-
+    <form action="procesar.php" method="post" enctype="multipart/form-data">
+        <input type="file" name="foto" />
+        <input type="submit" name="Upload" />
+    </form>
 </body>
+
 </html>
