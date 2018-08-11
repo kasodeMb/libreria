@@ -22,7 +22,7 @@ $user = '';
             </ul>
         </nav>
         <div>
-            <img class="logo" width="50" src="/IMAG/sale.jpg" alt="Sale" />
+            <img class="logo" src="/IMAG/TLBC-final-header.png" alt="Sale" />
             <h3 class="hello">Hola
                 <?php echo $user?>!</h3>
         </div>
