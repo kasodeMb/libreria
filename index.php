@@ -19,7 +19,7 @@ $db = new MySQL();
         <div class="container">
             <nav class="navbar justify-content-between nav-search">
                 <a class="navbar-brand">Libros Disponibles</a>
-                <form class="form-inline" action="/IndexBus">
+                <form class="form-inline" action="/">
                     <input class="form-control mr-sm-2" name="buscar" type="search" placeholder="Buscar">
                     <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Buscar</button>
                 </form>

@@ -6,7 +6,7 @@
     <title>Registration</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
         crossorigin="anonymous">
-    <link rel="stylesheet" href="styles/main.css" />
+    <link rel="stylesheet" href="../styles/main.css" />
 </head>
 
 <body>
@@ -31,29 +31,41 @@ if (isset($_REQUEST['username'])) {
         "', '$email', '$trn_date')";
 
     $result = $db->query($query);
+    if ($result == true) {
+        $_SESSION['message'] = "<div class='alert alert-success login-error' role='alert'>Usurio creado correctamente. <a href='/login'>Volver al Login</a></div>";
+    } else {
+        $_SESSION['message'] = "<div class='alert alert-danger login-error' role='alert'>Error al crear el usuario</div>";
+    }
 }
+    include('../shared/header.php');
 ?>
-        <div class="register">
-            <div id="apDiv10">
-                <img src="/IMAG/books.jpg" width="384" height="201">
-            </div>
-            <h1 align="center">Registro de Usuarios </h1>
-            <form name="/users/registration" action="" method="post">
-                <div align="center">
-                    <input type="text" name="username" placeholder="Username" required />
-                    <input type="email" name="email" placeholder="Email" required />
-                    <input type="password" name="password" placeholder="Password" required />
-                    <input type="submit" name="submit" value="Register" />
+
+        <div class="container">
+            <div class="card px-4 py-3">
+                <h1 align="center">Registro de Usuarios</h1>
+                <form action="/users/registration" method="post">
+                    <div class="form-group">
+                        <label for="username">Username</label>
+                        <input type="text" class="form-control" name="username" id="username" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="email">Email</label>
+                        <input type="text" class="form-control" name="email" id="email" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="password">Password</label>
+                        <input type="password" class="form-control" id="password" name="password" required>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Registrar</button>
                     <?php 
-                    if ($result) {
-                        echo "<div class='form'><h3>Su usuario ya fue registrado.</h3><br/>Click Aqui para <a href='/login'>Regresar</a></div>";
-                    } ?>
-                </div>
-            </form>
-        </div>
-        </div>
-        <div id="apDiv">
-            <img src="/IMAG/cpy.png" width="222" height="45">
+                        if (isset($_SESSION['message'])) {
+                            echo $_SESSION['message'];
+                            unset($_SESSION['message']);
+                        }
+                    ?>
+                </form>
+            </div>
+            <?php include('../shared/footer.php');?>
         </div>
 </body>
 
