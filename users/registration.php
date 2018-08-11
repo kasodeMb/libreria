@@ -9,7 +9,7 @@
 
 <body>
     <?php
-require 'mysql.php';
+require '../mysql.php';
 $db = new MySQL();
 $result = null;
 // If form submitted, insert values into the database.
@@ -33,10 +33,10 @@ if (isset($_REQUEST['username'])) {
 ?>
         <div class="register">
             <div id="apDiv10">
-                <img src="IMAG/books.jpg" width="384" height="201">
+                <img src="/IMAG/books.jpg" width="384" height="201">
             </div>
             <h1 align="center">Registro de Usuarios </h1>
-            <form name="registration" action="" method="post">
+            <form name="/users/registration" action="" method="post">
                 <div align="center">
                     <input type="text" name="username" placeholder="Username" required />
                     <input type="email" name="email" placeholder="Email" required />
@@ -50,7 +50,7 @@ if (isset($_REQUEST['username'])) {
         </div>
         </div>
         <div id="apDiv">
-            <img src="IMAG/cpy.png" width="222" height="45">
+            <img src="/IMAG/cpy.png" width="222" height="45">
         </div>
 </body>
 

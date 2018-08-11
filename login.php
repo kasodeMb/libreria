@@ -9,7 +9,7 @@
 
 <body>
     <?php
-require 'mysql.php';
+require ('mysql.php');
 session_start();
 $db = new MySQL();
 // If form submitted, insert values into the database.
@@ -26,9 +26,10 @@ if (isset($_POST['username'])) {
         md5($password) .
         "'";
     $db->query($query);
-    $rows = $db->numRows();
-    if ($rows == 1) {
+    $rows = $db->fetchArray();
+    if (count($rows) != 0) {
         $_SESSION['username'] = $username;
+        $_SESSION['isAdmin'] = (bool) $rows['admin'];
         header("Location: index.php"); // Redirect user to index.php
     } else {
         echo "<div class='form'><h3>Username/password is incorrect.</h3><br/>Click here to <a href='login.php'>Login</a></div>";
@@ -55,7 +56,7 @@ if (isset($_POST['username'])) {
             </form>
             <p align="center">
                 <br> Todavía no estas registrado?
-                <a href='/registration'>Registrarse aqui</a>
+                <a href='/users/registration'>Registrarse aqui</a>
                 <br />
             </p>
         </div>
@@ -63,7 +64,7 @@ if (isset($_POST['username'])) {
 }
 ?>
         <div id="apDiv">
-            <img src="IMAG/cpy.png" alt="" width="222" height="45">
+            <img src="/IMAG/cpy.png" alt="" width="222" height="45">
         </div>
 </body>
 

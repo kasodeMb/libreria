@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Aug 10, 2018 at 09:20 PM
+-- Generation Time: Aug 10, 2018 at 11:19 PM
 -- Server version: 5.7.23-0ubuntu0.18.04.1
 -- PHP Version: 7.2.7-0ubuntu0.18.04.2
 
@@ -27,42 +27,46 @@ USE `libreria`;
 -- --------------------------------------------------------
 
 --
--- Table structure for table `libros`
---
-
-DROP TABLE IF EXISTS `libros`;
-CREATE TABLE IF NOT EXISTS `libros` (
-  `id` int(8) NOT NULL AUTO_INCREMENT,
-  `nombre` varchar(50) DEFAULT NULL,
-  `curso` int(20) DEFAULT NULL,
-  `correo` varchar(30) DEFAULT NULL,
-  `imagen` varchar(280) DEFAULT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
--- --------------------------------------------------------
-
---
 -- Table structure for table `users`
 --
 
 DROP TABLE IF EXISTS `users`;
-CREATE TABLE IF NOT EXISTS `users` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `users` (
+  `id` int(11) NOT NULL,
   `username` varchar(50) NOT NULL,
   `email` varchar(50) NOT NULL,
   `password` varchar(50) NOT NULL,
   `trn_date` datetime NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
+  `admin` tinyint(1) NOT NULL DEFAULT '0'
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `users`
 --
 
-INSERT INTO `users` (`id`, `username`, `email`, `password`, `trn_date`) VALUES
-(1, 'gsdsdg', 'jason93.mb@gmail.com', '81dc9bdb52d04dc20036dbd8313ed055', '2018-08-09 21:03:51'),
-(3, '', '', 'd41d8cd98f00b204e9800998ecf8427e', '2018-08-09 21:06:56');
+INSERT INTO `users` (`id`, `username`, `email`, `password`, `trn_date`, `admin`) VALUES
+(6, 'Jason', 'jason93.mb@gmail.com', '81dc9bdb52d04dc20036dbd8313ed055', '2018-08-10 22:23:41', 1),
+(9, 'test', 'test@test.com', '098f6bcd4621d373cade4e832627b4f6', '2018-08-10 23:17:43', 0);
+
+--
+-- Indexes for dumped tables
+--
+
+--
+-- Indexes for table `users`
+--
+ALTER TABLE `users`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- AUTO_INCREMENT for dumped tables
+--
+
+--
+-- AUTO_INCREMENT for table `users`
+--
+ALTER TABLE `users`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

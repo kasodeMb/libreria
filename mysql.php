@@ -33,6 +33,12 @@ class MySQL
         }
         return false;
     }
+    public function fetchArray() {
+        if ($this->result && $this->numRows() != 0) {
+            return mysqli_fetch_array($this->result, MYSQLI_ASSOC);
+        }
+        return array();
+    }
     public function realEscapeString($str)
     {
         return mysqli_real_escape_string($this->con, $str);

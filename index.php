@@ -25,6 +25,9 @@ include "auth.php"; //include auth.php file on all secure pages
             <p align="center">
                 <a href="inicio.html">Ingresar Books Web page</a>
             </p>
+            <p align="center">
+                <a href="admin">Administrar Books Web page</a>
+            </p>
             <div align="center">
                 <a href="logout.php">Cerrar sessión</a>
                 <div id="apDiv">

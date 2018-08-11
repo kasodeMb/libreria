@@ -77,17 +77,17 @@ if ($_POST['agendar']) {
                     <p>PARA SUBIR TU IMAGEN:</p>
                     <p>
                       <a href="form.php">
-                        <img src="IMAG/subir img.jpg" width="134" height="47">
+                        <img src="/IMAG/subir img.jpg" width="134" height="47">
                       </a>
                     </p>
                   </div>
                 </form>
                 <div id="apDiv4">
                   <a href="/logout">
-                    <img src="IMAG/exit.png" width="100" height="70" />
+                    <img src="/IMAG/exit.png" width="100" height="70" />
                   </a>
                   <a href="/menu.html">
-                    <img src="IMAG/menu.png" width="91" height="69" />
+                    <img src="/IMAG/menu.png" width="91" height="69" />
                   </a>
                 </div>
               </td>
