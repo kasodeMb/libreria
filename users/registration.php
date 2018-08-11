@@ -1,9 +1,14 @@
+<?php 
+require("../adminOnly.php");
+?>
 <!DOCTYPE html>
 <html>
 
 <head>
     <meta charset="utf-8">
     <title>Registration</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
+        crossorigin="anonymous">
     <link rel="stylesheet" href="styles/main.css" />
 </head>
 
@@ -42,9 +47,10 @@ if (isset($_REQUEST['username'])) {
                     <input type="email" name="email" placeholder="Email" required />
                     <input type="password" name="password" placeholder="Password" required />
                     <input type="submit" name="submit" value="Register" />
-                    <?php if ($result) {
-    echo "<div class='form'><h3>Su usuario ya fue registrado.</h3><br/>Click Aqui para <a href='login.php'>Regresar</a></div>";
-} ?>
+                    <?php 
+                    if ($result) {
+                        echo "<div class='form'><h3>Su usuario ya fue registrado.</h3><br/>Click Aqui para <a href='/login'>Regresar</a></div>";
+                    } ?>
                 </div>
             </form>
         </div>

@@ -4,6 +4,8 @@
 <head>
     <meta charset="utf-8">
     <title>Login</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
+        crossorigin="anonymous">
     <link rel="stylesheet" href="styles/login.css" />
 </head>
 
@@ -30,7 +32,12 @@ if (isset($_POST['username'])) {
     if (count($rows) != 0) {
         $_SESSION['username'] = $username;
         $_SESSION['isAdmin'] = (bool) $rows['admin'];
-        header("Location: index.php"); // Redirect user to index.php
+        if ($_SESSION['isAdmin'] == true) {
+            header("Location: /"); 
+        } else {
+            header("Location: inicio.html"); 
+        }
+        
     } else {
         echo "<div class='form'><h3>Username/password is incorrect.</h3><br/>Click here to <a href='login.php'>Login</a></div>";
     }

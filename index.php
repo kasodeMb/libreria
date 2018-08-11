@@ -1,6 +1,5 @@
 <?php
-include "auth.php"; //include auth.php file on all secure pages
-//include auth.php file on all secure pages
+require("adminOnly.php");
 ?>
     <!DOCTYPE html>
     <html>
@@ -8,6 +7,8 @@ include "auth.php"; //include auth.php file on all secure pages
     <head>
         <meta charset="utf-8">
         <title>Welcome Home</title>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
+        crossorigin="anonymous">
         <link rel="stylesheet" href="styles/main.css" />
     </head>
 
