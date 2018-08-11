@@ -2,17 +2,27 @@
 require("../adminOnly.php");
 require('../mysql.php');
 $db = new MySQL();
-if ((isset($_GET['action']) && isset($_GET['id'])) && $_GET['action'] == 'delete') {
-    $query = "SELECT * FROM `books` WHERE id='".$_GET['id']."'";
-    $db->query($query);
-    $resBook = $db->fetchArray();
-    $query = "DELETE FROM books WHERE id='".$_GET['id']."'";
-    $res = $db->query($query);
-    if ($res == true) {
-        unlink("..".$resBook['image']);
-        $_SESSION['message'] = "<h3>Libro borrado con exito</h3>";
-    } else {
-        $_SESSION['message'] = "<h3>Error al borrar el libro</h3>";
+if ((isset($_GET['action']) && isset($_GET['id']))) {
+    if ($_GET['action'] == 'delete') {
+        $query = "SELECT * FROM `books` WHERE id='".$_GET['id']."'";
+        $db->query($query);
+        $resBook = $db->fetchArray();
+        $query = "DELETE FROM books WHERE id='".$_GET['id']."'";
+        $res = $db->query($query);
+        if ($res == true) {
+            unlink("..".$resBook['image']);
+            $_SESSION['message'] = "<h3>Libro borrado con exito</h3>";
+        } else {
+            $_SESSION['message'] = "<h3>Error al borrar el libro</h3>";
+        }
+    } else if ($_GET['action'] == 'sell') {
+        $query = "UPDATE `books` SET available=0 WHERE id=".$_GET['id'];
+        $res = $db->query($query);
+        if ($res == true) {
+            $_SESSION['message'] = "<h3>Libro modificado con exito</h3>";
+        } else {
+            $_SESSION['message'] = "<h3>Error al modificar el libro</h3>";
+        }
     }
     header("Location: /libros/list");
     exit();
@@ -29,6 +39,13 @@ if ((isset($_GET['action']) && isset($_GET['id'])) && $_GET['action'] == 'delete
 </head>
 
 <body>
+    <nav class="navbar navbar-light bg-light justify-content-between">
+        <a class="navbar-brand">Libros Disponibles</a>
+        <form class="form-inline" action="/libros/list">
+            <input class="form-control mr-sm-2" name="buscar" type="search" placeholder="Buscar">
+            <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Buscar</button>
+        </form>
+    </nav>
     <?php 
     if(isset($_SESSION['message'])) {
          echo $_SESSION['message'];
@@ -51,8 +68,15 @@ if ((isset($_GET['action']) && isset($_GET['id'])) && $_GET['action'] == 'delete
         <tbody>
             <?php 
                 $query = "SELECT * FROM `books`";
+                if (isset($_GET['buscar'])) {
+                  $search = $db->realEscapeString($_GET['buscar']);
+                  $query = "SELECT * FROM `books` WHERE (isbn='$search' OR title LIKE '%$search%' OR author LIKE '%$search%' OR description LIKE '%$search%')";
+                }
                 $db->query($query);
                 $rows = $db->fetchAll();
+                if (count($rows) == 0 ) {
+                    echo "<tr><td colspan='8' class='text-center'>No se encontraron libros</td></tr>";
+                  }
                 foreach ($rows as $key => $value) {
                     echo "<tr>";
                     echo "<td>".$value["id"]."</td>";
@@ -63,7 +87,9 @@ if ((isset($_GET['action']) && isset($_GET['id'])) && $_GET['action'] == 'delete
                     echo "<td>".$value["description"]."</td>";
                     echo "<td>".((bool)$value["available"] ? "Si" : "No")."</td>";
                     echo "<td>";
-                    echo "<a href='/libros/list?action=delete&id=".$value["id"]."'>Eliminar</a>";
+                    echo "<a class='btn btn-danger' href='/libros/list?action=delete&id=".$value["id"]."'>Eliminar</a>";
+                    echo "<br /> <br />";
+                    echo "<a class='btn btn-primary' href='/libros/list?action=sell&id=".$value["id"]."'>Marcar como vendido</a>";
                     echo "</td>";
                     echo "</tr>";
                 }

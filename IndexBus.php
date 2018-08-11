@@ -31,7 +31,7 @@
         </thead>
         <tbody>
             <?php
-                $query = "SELECT * FROM `books`";
+                $query = "SELECT * FROM `books` WHERE available=1";
                 if (isset($_GET['buscar'])) {
                   $search = $db->realEscapeString($_GET['buscar']);
                   $query = "SELECT * FROM `books` WHERE (isbn='$search' OR title LIKE '%$search%' OR author LIKE '%$search%' OR description LIKE '%$search%') AND available=1";
