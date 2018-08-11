@@ -1,100 +1,110 @@
 <?php
-
-ini_set('error_reporting', 0);
-// Incluimos la configuracion y conexion a la MySQL.
-$conexion = mysqli_connect("localhost", "root", "", "prueba");
-
-// Definimos la variable $msg por seguridad.
-$msg = "";
-// Si se apreta el boton Agendar, da la condicion como true.
-if ($_POST['agendar']) {
-    // Verificamos que no alla ningun dato sin rellenar.
-    if (!empty($_POST['nombre']) || !empty($_POST['correo'])) {
-        // Pasamos los datos de los POST a Variables, y le ponemos seguridad.
-        $nombre = htmlentities($_POST['nombre']);
-        $correo = htmlentities($_POST['correo']);
-        // Insertamos los datos en la base de datos, si da algun error lo muestra.
-        mysqli_query(
-            $conexion,
-            "INSERT INTO libros(nombre, correo) VALUES ('$nombre','$correo')"
-        );
-        mysqli_close($conexion);
-        // Mostramos un mensaje diciendo que todo salio como lo esperado
-        $msg = "Libro agregado correctamente";
-    } else {
-        // Si hay un dato sin rellenar mostramos el siguiente texto.
-        $msg = "Falta rellenar algun dato";
-    }
-}
+  require('../adminOnly.php');
+  require('../mysql.php');
+  $db = new MySQL();
+  $fields = ['isbn', 'title', 'author', 'description'];
+  $isValid = true;
+  $msg = '';
+  foreach ($fields as $key => $value) {
+      if (!isset($_POST[$value]) || (isset($_POST[$value]) && $_POST[$value] == '')) {
+          $isValid = false;
+      }
+  }
+  if (!isset($_FILES['image']) || (isset($_FILES['image']) && $_FILES['image'] == '')) {
+      $isValid = false;
+  }
+  
+  if (count($_POST) != 0) {
+      if ($isValid) {
+          $archivo= $_FILES['image']['tmp_name'];
+          $fileName = time()."-".$_FILES['image']['name'];
+          $destino= "../uploads/".$fileName;
+          move_uploaded_file($archivo, $destino);
+          $query =
+        "INSERT INTO `books`(isbn, title, image, author, description) VALUES ('".$db->realEscapeString($_POST['isbn'])."','".$db->realEscapeString($_POST['title'])."','/uploads/".$db->realEscapeString($fileName)."','".$db->realEscapeString($_POST['author'])."','".$db->realEscapeString($_POST['description'])."') ";
+          $res = $db->query($query);
+          if ($res == true) {
+            $msg = "Libro agregado con exito";
+          } else {
+            $msg = "Error al agregar libro";
+          }
+      } else {
+          $msg = "Todos los campos son requeridos";
+      }
+  }
+        
 ?>
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<title>Agenda - Agregar personas</title>
-</head>
-<style type="text/css">
-    .agenda {
-      margin: 100px auto 0 auto;
-      width: 701px;
-      height: 468px;
-      background-image: url(imagenes/agenda.jpg);
-    }
+  <title>Agregar Libros</title>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
+    crossorigin="anonymous">
+  <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+    crossorigin="anonymous"></script>
+  <script crossorigin src="https://underscorejs.org/underscore-min.js"></script>
+  <link rel="stylesheet" href="../styles/main.css" />
+  </head>
 
-    .agenda #contenidor {
-      padding: 25px;
-      width: 276px;
-      height: 428px;
-    }
-  </style>
   <body>
-    <div class="agenda">
-      <div id="contenidor">
-        <div align="center">
-          <table width="106%" height="378" border="0">
-            <tr>
-              <td height="38" colspan="3" align="center" valign="middle">
-                <h1>Agregar Libros</h1>
-              </td>
-            </tr>
-            <tr>
-              <td height="334" colspan="3" valign="top">
-                <div align="center">
-                  <em>
-                    <span style="color:red;">
-                      <?= $msg; ?>
-                    </span>
-                  </em>
-                </div>
-                <form action="agregar.php" method="post">
-                  <div align="center">
-                    <p>
-                      <strong>Nombre</strong>
-                      <input type="text" name="nombre" id="nombre" />
-                      <strong>Correo</strong>
-                      <input type="text" name="correo" id="correo" />
-                    </p>
-                    <p>
-                      <input type="submit" name="agendar" value="Agregar" />
-                    </p>
-                    <p>PARA SUBIR TU IMAGEN:</p>
-                    <p>
-                      <a href="form.php">
-                        <img src="/IMAG/subir img.jpg" width="134" height="47">
-                      </a>
-                    </p>
-                  </div>
-                </form>
-                <div id="apDiv4">
-                  <a href="/logout">
-                    <img src="/IMAG/exit.png" width="100" height="70" />
-                  </a>
-                  <a href="/menu.html">
-                    <img src="/IMAG/menu.png" width="91" height="69" />
-                  </a>
-                </div>
-              </td>
-            </tr>
-          </table>
+    <form action="/libros/agregar" method="post" enctype="multipart/form-data">
+      <div class="form-group">
+        <label for="isbn">ISBN</label>
+        <input type="text" class="form-control" id="isbn" name="isbn" required maxlength="13">
+      </div>
+      <div class="form-group">
+        <label for="title">Titulo</label>
+        <input type="text" class="form-control" id="title" name="title" required>
+      </div>
+      <div class="form-group">
+        <label for="author">Autor</label>
+        <input type="text" class="form-control" id="author" name="author" required>
+      </div>
+      <div class="form-group">
+        <label for="description">Descripcion</label>
+        <input type="text" class="form-control" id="description" name="description" required>
+      </div>
+      <div class="form-group">
+        <div class="custom-file">
+          <input data-toggle="custom-file" data-target="#image" type="file" name="image" accept=" image/png, image/jpeg" class="custom-file-input">
+          <span id="image" class="custom-file-control custom-file-name custom-file-label" data-content="Selecione una imagen..."></span>
         </div>
       </div>
-    </div>
+      <button type="submit" class="btn btn-primary">Agregar</button>
+      <p><?php echo $msg?> </p>
+    </form>
+    <script>
+      $(document).ready(function () {
+        // handle custom file inputs
+        $('body').on('change', 'input[type="file"][data-toggle="custom-file"]', function (ev) {
+          console.log('change');
+          var $input = $(this);
+          var target = $input.data('target');
+          var $target = $(target);
+
+          if (!$target.length)
+            return console.error('Invalid target for custom file', $input);
+
+          if (!$target.attr('data-content'))
+            return console.error('Invalid `data-content` for custom file target', $input);
+
+          // set original content so we can revert if user deselects file
+          if (!$target.attr('data-original-content'))
+            $target.attr('data-original-content', $target.attr('data-content'));
+
+          var input = $input.get(0);
+
+          var name = _.isObject(input) &&
+            _.isObject(input.files) &&
+            _.isObject(input.files[0]) &&
+            _.isString(input.files[0].name) ? input.files[0].name : $input.val();
+
+          if (_.isNull(name) || name === '')
+            name = $target.attr('data-original-content');
+
+          $target.attr('data-content', name);
+
+        });
+      });
+    </script>
   </body>
+
   </html>
