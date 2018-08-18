@@ -33,6 +33,12 @@ class MySQL
         }
         return false;
     }
+    public function affectedRows() {
+        if ($this->con) {
+            return mysqli_affected_rows($this->con);
+        }
+        return 0;
+    }
     public function fetchArray()
     {
         if ($this->result && $this->numRows() != 0) {

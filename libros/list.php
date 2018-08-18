@@ -9,7 +9,7 @@ if ((isset($_GET['action']) && isset($_GET['id']))) {
         $resBook = $db->fetchArray();
         $query = "DELETE FROM books WHERE id='".$_GET['id']."'";
         $res = $db->query($query);
-        if ($res == true) {
+        if ($db->affectedRows() > 0) {
             unlink("..".$resBook['image']);
             $_SESSION['message'] = "<div class='alert alert-success' role='alert'>Libro borrado con exito</div>";
         } else {
@@ -18,7 +18,7 @@ if ((isset($_GET['action']) && isset($_GET['id']))) {
     } else if ($_GET['action'] == 'sell') {
         $query = "UPDATE `books` SET available=0 WHERE id=".$_GET['id'];
         $res = $db->query($query);
-        if ($res == true) {
+        if ($db->affectedRows() > 0) {
             $_SESSION['message'] = "<div class='alert alert-success' role='alert'>Libro modificado con exito</div>";
         } else {
             $_SESSION['message'] = "<div class='alert alert-danger' role='alert'>Error al modificar el libro</div>";

@@ -5,7 +5,7 @@ $db = new MySQL();
 if ((isset($_GET['action']) && isset($_GET['id'])) && $_GET['action'] == 'delete') {
     $query = "DELETE FROM users WHERE id='".$_GET['id']."'";
     $res = $db->query($query);
-    if ($res == true) {
+    if ($db->affectedRows() > 0) {
         $_SESSION['message'] = "<div class='alert alert-success' role='alert'>Usuario borrado con exito</div>";
     } else {
         $_SESSION['message'] = "<div class='alert alert-danger' role='alert'>Error al borrar el usuario</div>";
