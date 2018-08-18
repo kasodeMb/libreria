@@ -26,7 +26,7 @@ $user = '';
             </ul>
         </nav>
         <div>
-            <img class="logo" src="/IMAG/TLBC-final-header.png" alt="Sale" />
+            <a href="/"><img class="logo" src="/IMAG/TLBC-final-header.png" alt="Sale" /></a>
             <h3 class="hello">Hola
                 <?php echo $user?>!</h3>
         </div>
@@ -45,7 +45,7 @@ $user = '';
             </ul>
         </nav>
         <div>
-            <img class="logo" src="/IMAG/TLBC-final-header.png" alt="Sale" />
+        <a href="/"><img class="logo" src="/IMAG/TLBC-final-header.png" alt="Sale" /></a>
         </div>
     </div>
 </header>

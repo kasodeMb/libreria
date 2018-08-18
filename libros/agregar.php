@@ -18,19 +18,22 @@
       if ($isValid) {
           $archivo= $_FILES['image']['tmp_name'];
           $fileName = time()."-".$_FILES['image']['name'];
-          $destino= "../uploads/".$fileName;
+          $destino= "../uploads/".str_replace("'","-",$fileName);
           move_uploaded_file($archivo, $destino);
           $query =
-        "INSERT INTO `books`(isbn, title, image, author, description) VALUES ('".$db->realEscapeString($_POST['isbn'])."','".$db->realEscapeString($_POST['title'])."','/uploads/".$db->realEscapeString($fileName)."','".$db->realEscapeString($_POST['author'])."','".$db->realEscapeString($_POST['description'])."') ";
+        "INSERT INTO `books`(isbn, title, image, author, description) VALUES ('".$db->realEscapeString($_POST['isbn'])."','".$db->realEscapeString($_POST['title'])."','/uploads/".$db->realEscapeString(str_replace("'","-",$fileName))."','".$db->realEscapeString($_POST['author'])."','".$db->realEscapeString($_POST['description'])."') ";
           $res = $db->query($query);
           if ($res == true) {
-            $msg = "Libro agregado con exito";
+            $_SESSION['message'] = "<div class='alert alert-success' role='alert'>Libro agregado con exito</div>";
           } else {
-            $msg = "Error al agregar libro";
+            $_SESSION['message'] = "<div class='alert alert-danger' role='alert'>Error al agregar el libro</div>";
           }
       } else {
-          $msg = "Todos los campos son requeridos";
+          $_SESSION['message'] = "<div class='alert alert-danger' role='alert'>Todos los campos son requeridos</div>";
       }
+      header("Location: /libros/agregar");
+    exit();
+
   }
         
 ?>
@@ -51,18 +54,22 @@
   <body>
   <?php include('../shared/header.php')?>
     <div class="container">
+        <?php if(isset($_SESSION['message'])) {
+         echo $_SESSION['message'];
+         unset($_SESSION['message']);
+        }?>
     <form action="/libros/agregar" method="post" enctype="multipart/form-data">
       <div class="form-group">
         <label for="isbn">ISBN</label>
-        <input type="text" class="form-control" id="isbn" name="isbn" required maxlength="13">
+        <input type="text" class="form-control" id="isbn" name="isbn" maxlength="13" required>
       </div>
       <div class="form-group">
         <label for="title">Titulo</label>
-        <input type="text" class="form-control" id="title" name="title" required>
+        <input type="text" class="form-control" id="title" name="title" required >
       </div>
       <div class="form-group">
         <label for="author">Autor</label>
-        <input type="text" class="form-control" id="author" name="author" required>
+        <input type="text" class="form-control" id="author" name="author" required >
       </div>
       <div class="form-group">
         <label for="description">Descripcion</label>
@@ -70,13 +77,11 @@
       </div>
       <div class="form-group">
         <div class="custom-file">
-          <input data-toggle="custom-file" data-target="#image" type="file" name="image" accept=" image/png, image/jpeg" class="custom-file-input">
+          <input data-toggle="custom-file" data-target="#image" type="file" name="image" required accept=" image/png, image/jpeg" class="custom-file-input">
           <span id="image" class="custom-file-control custom-file-name custom-file-label" data-content="Selecione una imagen..."></span>
         </div>
       </div>
       <button type="submit" class="btn btn-primary btn-lg">Agregar</button>
-      <p>
-        <?php echo $msg?> </p>
     </form>
     <script>
       $(document).ready(function () {

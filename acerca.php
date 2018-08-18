@@ -14,14 +14,19 @@
 
 <body>
   <?php include('shared/header.php')?>
-  <div class="container">
-    <div id="apDiv2">
-      <h3 align="justify">Acerca de nosotros: Somos una organizacion de la comunidad estudiantil de la universidad que tomo la iniciativa de
-        crear y pormover una oportunidad de tener un destino final para nuestros libros usados, creando un beneficio tanto
-        para el vendedor como para el comprador.
-        <br />
-      </h3>
+  <div class="container about-us">
+    <h1>Sobre nosotros</h1>
+    <div class="row">
+    <div class="col-sm">
+    <img src="/IMAG/bookshelf.jpg" alt="shelf" class="bookshelf" />
     </div>
+    <div class="col-sm">
+    <p align="justify">Somos una organizacion que tomo la iniciativa de
+        crear y promover una oportunidad de tener un destino final para nuestros libros usados, creando un beneficio para el comprador
+        al poder adquirir libros en buen estado y a bajo precio.
+      </p>
+    </div>
+  </div>
     <?php include('shared/footer.php');?>
   </div>
 </body>
